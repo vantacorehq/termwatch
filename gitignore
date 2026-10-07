@@ -1,0 +1,26 @@
+# Secrets
+.env
+
+# Data written by termwatch
+data/
+sentiment_log.json
+sentiment_log.csv
+seen_tweets.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
