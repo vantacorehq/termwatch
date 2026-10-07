@@ -42,25 +42,23 @@ You can also set them as environment variables. The `.env` file is ignored by gi
 
 Check that your Gemini key works:
 
-    python -m termwatch analyze --text "example text to analyze"
+    python termwatch.py analyze --text "example text to analyze"
 
 Watch an account, one check every 15 minutes (stop with Ctrl+C):
 
-    python -m termwatch run --user example_account
+    python termwatch.py run --user example_account
 
 Other ways to run:
 
-    python -m termwatch run --user example_account --once
-    python -m termwatch run --user first_account --user second_account
-    python -m termwatch run --user example_account --from-now --exclude-retweets --exclude-replies
-    python -m termwatch run --user example_account --interval 1800 --max-tweets 10
+    python termwatch.py run --user example_account --once
+    python termwatch.py run --user first_account --user second_account
+    python termwatch.py run --user example_account --from-now --exclude-retweets --exclude-replies
+    python termwatch.py run --user example_account --interval 1800 --max-tweets 10
 
 Summarize what has been logged:
 
-    python -m termwatch report
-    python -m termwatch report --top 20 --format json
-
-You can also install the `termwatch` command with `pip install .` and use `termwatch run ...` instead of `python -m termwatch run ...`.
+    python termwatch.py report
+    python termwatch.py report --top 20 --format json
 
 Options of `run`: `--user` (repeat for several accounts), `--interval` (seconds, default `900`), `--max-tweets` (5 to 100, default `5`), `--once`, `--from-now` (the first check of an account skips its existing tweets), `--exclude-retweets`, `--exclude-replies`, `--data-dir` (default `data`), `--model` (default `gemini-flash-latest`).
 
@@ -82,22 +80,23 @@ The picture shows a made-up account, made-up tweets and a demo log of 7 entries.
 
 ## Tests
 
-    python -m unittest discover -s tests -t .
+    python -m unittest discover -s . -p "test_*.py"
 
 63 tests cover the X and Gemini clients (with retries and rate limits), logging, state, the tracker loop, the report and the command line. Tested with Python 3.12.
 
-## Project layout
+## Project files
 
-    termwatch/
-      cli.py            commands and options
-      tracker.py        one check and the main loop
-      x_client.py       X API v2: user lookup and timeline
-      gemini_client.py  Gemini analysis with retries
-      storage.py        JSON log, CSV log, state file
-      report.py         summary of the log
-      config.py         API keys from environment or .env
-    tests/              unit tests
-    assets/             images for this README
+| File | Purpose |
+| --- | --- |
+| `termwatch.py` | Commands and options, run this file |
+| `tw_tracker.py` | One check and the main loop |
+| `tw_x_client.py` | X API v2: user lookup and timeline |
+| `tw_gemini_client.py` | Gemini analysis with retries |
+| `tw_storage.py` | JSON log, CSV log, state file |
+| `tw_report.py` | Summary of the log |
+| `tw_config.py` | API keys from environment or `.env` |
+| `test_*.py`, `helpers_fakes.py` | Unit tests |
+| `assets/` | Images for this README |
 
 ## Need a custom monitoring tool?
 
